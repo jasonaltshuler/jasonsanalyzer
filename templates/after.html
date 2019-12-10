@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Analyzed
+{% endblock %}
+
+{% block header %}
+    ANALYZED
+{% endblock %}
+
+{% block body %}
+
+        <!-- Got this syntax from https://stackoverflow.com/questions/6243441/script-to-change-value-of-a-text-javascript/6243463
+            and https://www.w3schools.com/jsref/event_onclick.asp -->
+        <script >
+        function myFunction()
+        {
+
+            if (document.querySelector('#seemore').innerHTML == "See more!")
+            {
+                document.getElementById("actualtext").innerHTML = "{{unchanged_text}}";
+                document.querySelector('#seemore').innerHTML = "See less!";
+
+            }
+            else if (document.querySelector('#seemore').innerHTML == "See less!")
+            {
+                document.getElementById("actualtext").innerHTML = "{{unchanged_text | short}}";
+                document.querySelector('#seemore').innerHTML ="See more!";
+            }
+
+        }
+        </script>
+
+    <div class="text">
+
+        <button class="btn btn-outline-secondary" onclick="window.location.href = '/';">Return</button>
+
+        <div class="body">
+            <p id="textblock">
+                <strong>Text:</strong>
+                <p id="actualtext">{{unchanged_text | short}}</p>
+                <button class="btn btn-outline-primary" id="seemore" onclick="myFunction()">See more!</button>
+            </p>
+        </div>
+
+    </div>
+
+    <div>
+        <p> <strong>Word count:</strong> {{words}} </p>
+        <p> <strong>Percentage of the wordcount represented by your {{favoritescount}} most common words:</strong> {{percentage}}% </p>
+
+        <p> <strong>Most common words:</strong> </p>
+        <p> <i>Click on the word to view synonyms!</i> </p>
+
+        <table class="table">
+            <tr>
+                <th>Word</th>
+                <th>Count</th>
+            </tr>
+
+            {% for favorite in favorites %}
+                <tr>
+                    <td><a href="/synonyms?word={{ favorite['Word'] }}">{{ favorite["Word"] }}</a></td>
+                    <td>{{ favorite["Count"] }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+        <p></p>
+
+        <p> <strong>Punctuation counts:</strong> </p>
+
+        <table class="table">
+            <tr>
+                <th>Mark</th>
+                <th>Count</th>
+            </tr>
+
+            {% for punctuation in punctuationrefined %}
+                <tr>
+                    <td>{{ punctuation["Mark"] }}</td>
+                    <td>{{ punctuation["Count"] }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+
+    </div>
+
+    <button class="btn btn-outline-secondary" onclick="window.location.href = '/';">Return</button>
+
+{% endblock %}

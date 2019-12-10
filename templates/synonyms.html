@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Analyzed (Synonyms)
+{% endblock %}
+
+{% block header %}
+    ANALYZED
+{% endblock %}
+
+{% block body %}
+
+    <button class="btn btn-outline-secondary" onclick="window.location.href = '/';">Return</button>
+
+    <div>
+        <h3 class="subsubtitle">SYNONYMS FOR "{{theword}}"</h2>
+    </div>
+
+    <div>
+
+        <table id="synonyms" class="table">
+            <tr>
+                <th>Part of sentence</th>
+                <th>Synonym</th>
+            </tr>
+
+            {% for noun_synonym in noun_synonyms %}
+                <tr>
+                    <td><i>Noun</i></td>
+                    <td>{{ noun_synonym }}</td>
+                </tr>
+            {% endfor %}
+
+            {% for adjective_synonym in adjective_synonyms %}
+                <tr>
+                    <td><i>Adjective</i></td>
+                    <td>{{ adjective_synonym }}</td>
+                </tr>
+            {% endfor %}
+
+            {% for verb_synonym in verb_synonyms %}
+                <tr>
+                    <td><i>Verb</i></td>
+                    <td>{{ verb_synonym }}</td>
+                </tr>
+            {% endfor %}
+
+            {% for adverb_synonym in adverb_synonyms %}
+                <tr>
+                    <td><i>Adverb</i></td>
+                    <td>{{ adverb_synonym }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+        <p id="alert"></p>
+
+        <script>
+        function alert()
+        {
+            var length = document.getElementById("synonyms").rows.length;
+            if (length == 1)
+            {
+                document.getElementById("alert").innerHTML = "<i>No synonyms found!</i>";
+            }
+        }
+
+        window.onload = function() {
+          alert();
+        };
+        </script>
+
+
+    </div>
+
+    <button class="btn btn-outline-secondary" onclick="window.location.href = '/';">Return</button>
+
+{% endblock %}

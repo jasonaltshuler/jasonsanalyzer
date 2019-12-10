@@ -1,0 +1,43 @@
+.explanatory
+{
+    font-size: 10px;
+    color: grey;
+    font-style: italic;
+    line-height: 0.5em;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.title
+{
+    font-size: 100px;
+    color: DodgerBlue;
+    font-weight: bold;
+    text-align: center;
+}
+
+.subtitle
+{
+    font-size: 30px;
+    font-weight: bold;
+    color: #80bfff;
+    text-align: center;
+}
+
+.subsubtitle
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: CornflowerBlue;
+    text-align: left;
+}
+
+.body
+{
+    text-align: center;
+}
+
+.text
+{
+    font-family: verdana, sans-serif;
+}
