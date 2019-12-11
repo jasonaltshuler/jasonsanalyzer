@@ -273,12 +273,16 @@ def home():
         for i in range(0, len(most)):
             # Check if word was used more than twice
             if most[i][1] >= 3:
-                # Add a dictionary to favorites with 'Word' and 'Count' for every word in most
-                favorites.append({'Word': most[i][0].upper(), 'Count': most[i][1]})
-                # Add the count (times used) for each word to favoritestotal
-                favoritestotal += most[i][1]
-                # Add one to favoritescount, to get the total count of favorite words
-                favoritescount += 1
+                # Check if the word is a single letter, that isn't "a" or "I"... if so, don't include it
+                if len(most[i][0]) < 2 and most[i][0].upper() != "A" and most[i][0].upper() != "I":
+                    continue
+                else:
+                    # Add a dictionary to favorites with 'Word' and 'Count' for every valid word in most
+                    favorites.append({'Word': most[i][0].upper(), 'Count': most[i][1]})
+                    # Add the count (times used) for each word to favoritestotal
+                    favoritestotal += most[i][1]
+                    # Add one to favoritescount, to get the total count of favorite words
+                    favoritescount += 1
 
         # Calculate the portion of the total word count that was accounted for by the top words displayed
         percentage = round(((favoritestotal / words) * 100), 2)
