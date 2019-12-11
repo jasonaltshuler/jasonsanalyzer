@@ -140,6 +140,8 @@ def home():
                 parenthesis +=1
             elif character =='“':
                 quotation +=1
+            elif character =='"':
+                quotation +=1
 
         # Add the counts for each mark (in the form of a dict) to the centralized punctuation list
         # AND update text to wipe out any punctuation that could mess up word counting
@@ -169,6 +171,7 @@ def home():
         punctuation.append({'Mark': '" "', 'Count': quotation})
         text = text.replace('“', ' ')
         text = text.replace('”', ' ')
+        text = text.replace('"', ' ')
 
 
         # Got this from here https://www.geeksforgeeks.org/ways-sort-list-dictionaries-values-python-using-itemgetter/
@@ -268,6 +271,7 @@ def home():
 
 
         for i in range(0, len(most)):
+            # Check if word was used more than twice
             if most[i][1] >= 3:
                 # Add a dictionary to favorites with 'Word' and 'Count' for every word in most
                 favorites.append({'Word': most[i][0].upper(), 'Count': most[i][1]})
