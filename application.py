@@ -41,7 +41,7 @@ def home():
             # Check if any text was pasted
             if not request.form.get("thetext"):
                 # If no file or pasted text, pass this message through instead
-                unchanged_text = "No type entered or file uploaded!"
+                unchanged_text = "No text entered or file uploaded!"
                 return render_template("after.html", unchanged_text = unchanged_text, words="", favorites="", punctuationrefined="")
             else:
                 rawtext = request.form.get("thetext")
@@ -55,6 +55,7 @@ def home():
             if request.form.get("thetext"):
                 # If that's the case, pass this message through
                 text = "Please upload a file OR enter text (not both)"
+                unchanged_text = "Please upload a file OR enter text (not both)"
             else:
                 # If a .docx file was uploaded, parse it as text
                 file = request.files["thefile"]
@@ -197,14 +198,6 @@ def home():
         # Read text file with 1000 most common English words from https://1000mostcommonwords.com/1000-most-common-english-words/
         morecommons = open('morewords.txt').read().split()
 
-        # Check if there are any words to be exempted (from Advanced)
-        if request.form.get("exemptions"):
-            exceptions = request.form.get("exemptions")
-            # If there are, make them lowercase and split them into individual words
-            exceptions = exceptions.lower().split()
-        else:
-            exceptions = []
-
         # Count how many times every repeated word is used
         cnt = Counter()
         for word in (allWords):
@@ -216,6 +209,14 @@ def home():
         key_array=[]
         for key in keys:
             key_array.append(key)
+
+        # Check if there are any words to be exempted (from Advanced)
+        if request.form.get("exemptions"):
+            exceptions = request.form.get("exemptions")
+            # If there are, make them lowercase and split them into individual words
+            exceptions = exceptions.lower().split()
+        else:
+            exceptions = []
 
         # Screen any words necessary
         for i in range(0, len(key_array)):
