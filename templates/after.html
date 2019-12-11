@@ -1,13 +1,5 @@
 {% extends "layout.html" %}
 
-{% block title %}
-    Analyzed
-{% endblock %}
-
-{% block header %}
-    ANALYZED
-{% endblock %}
-
 {% block body %}
 
         <!-- Got this syntax from https://stackoverflow.com/questions/6243441/script-to-change-value-of-a-text-javascript/6243463
@@ -47,7 +39,7 @@
 
     <div>
         <p> <strong>Word count:</strong> {{words}} </p>
-        <p> <strong>Percentage of the wordcount represented by your {{favoritescount}} most common words:</strong> {{percentage}}% </p>
+        <p> <strong>Percentage of the word count represented by your {{favoritescount}} most common words:</strong> {{percentage}}% </p>
 
         <p> <strong>Most common words:</strong> </p>
         <p> <i>Click on the word to view synonyms!</i> </p>

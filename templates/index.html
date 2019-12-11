@@ -1,20 +1,13 @@
 {% extends "layout.html" %}
 
-{% block title %}
-    Analyzer
-{% endblock %}
-
-{% block header %}
-    ANALYZER
-{% endblock %}
-
 {% block body %}
     <div class="body">
         <div class="explanatory">
             <p>Please enter or upload English text below! To upload a file, make sure it is a .docx Word document.</p>
             <p>A larger text file is recommended, as the more text available, the more meaningful the analysis will be.</p>
             <p>By default, 10 favorite words will be returned, with "strong" screening</p>
-            <p>(You can adjust the number of words returned and level of screening in the “Advanced” options. Please note that a word will never be returned as a "favorite" if it used less than 3 times.)</p>
+            <p>(You can adjust the number of words returned and level of screening in the “Advanced” options)</p>
+            <p>Please note that a word will never be returned as a "favorite" if it used less than 3 times.)</p>
         </div>
 
         <form action="/" method="post" enctype="multipart/form-data" class="form-group">
@@ -36,6 +29,8 @@
                     <input name="quantity" placeholder="How many words? (Default is 10)" type="number" min="0" class="form-control">
                 </div>
 
+                <br/>
+
                 <div>
                     <p  style="font-weight:bold;">How strictly would you like common words to be filtered out of your text? (When counting frequently used words)</p>
                     <div class="radio" id="screening">
@@ -44,6 +39,8 @@
                         <label class="radio-inline"><input type="radio" name="strictness" value="strong" checked>Strong screening (most common 1000 words in the English language filtered)</label>
                     </div>
                 </div>
+
+                <br/>
 
                 <div>
                     <p style="font-weight:bold;">If you would like any specific words to be filtered out as well, enter them below separated by a space.</p>
