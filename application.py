@@ -146,32 +146,31 @@ def home():
         # Add the counts for each mark (in the form of a dict) to the centralized punctuation list
         # AND update text to wipe out any punctuation that could mess up word counting
             # For instance, so "Hi (I'm Jason)" is counted as Hi, I'm, and Jason... not Jason), (I'm, and Hi
-            # If a punctuation mark is usually next to a space (like ?) just remove it; if usually touching letters (like -), replace it with a space to keep words separate
         punctuation.append({'Mark': ".", 'Count': period})
-        text = text.replace('.', ' ')
+        text = text.replace('.', '')
         punctuation.append({'Mark': ";", 'Count': semicolon})
-        text = text.replace(';', ' ')
+        text = text.replace(';', '')
         punctuation.append({'Mark': ":", 'Count': colon})
-        text = text.replace(':', ' ')
+        text = text.replace(':', '')
         punctuation.append({'Mark': "-", 'Count': dash})
         text = text.replace('-', '')
         punctuation.append({'Mark': "—", 'Count': mdash})
         text = text.replace('—', ' ')
         punctuation.append({'Mark': ",", 'Count': comma})
-        text = text.replace(',', ' ')
+        text = text.replace(',', '')
         punctuation.append({'Mark': "!", 'Count': exclamation})
-        text = text.replace('!', ' ')
+        text = text.replace('!', '')
         punctuation.append({'Mark': "?", 'Count': question})
-        text = text.replace('?', ' ')
+        text = text.replace('?', '')
         punctuation.append({'Mark': "/", 'Count': slash})
         text = text.replace('/', '')
         punctuation.append({'Mark': "( )", 'Count': parenthesis})
-        text = text.replace('(', ' ')
-        text = text.replace(')', ' ')
+        text = text.replace('(', '')
+        text = text.replace(')', '')
         punctuation.append({'Mark': '" "', 'Count': quotation})
-        text = text.replace('“', ' ')
-        text = text.replace('”', ' ')
-        text = text.replace('"', ' ')
+        text = text.replace('“', '')
+        text = text.replace('”', '')
+        text = text.replace('"', '')
 
 
         # Got this from here https://www.geeksforgeeks.org/ways-sort-list-dictionaries-values-python-using-itemgetter/
