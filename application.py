@@ -220,11 +220,8 @@ def home():
 
         # Screen any words necessary
         for i in range(0, len(key_array)):
-            # If no screening was requested, move on
-            if request.form.get("strictness") == "no":
-                continue
             # If weak screening was requested, only use 100 word database
-            elif request.form.get("strictness") == "weak":
+            if request.form.get("strictness") == "weak":
                 # Check if word in the sample is in 100 word database
                 for common in commons:
                     if key_array[i] == common:
