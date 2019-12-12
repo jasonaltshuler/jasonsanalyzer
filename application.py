@@ -27,11 +27,13 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -42,7 +44,7 @@ def home():
             if not request.form.get("thetext"):
                 # If no file or pasted text, pass this message through instead
                 unchanged_text = "No text entered or file uploaded!"
-                return render_template("after.html", unchanged_text = unchanged_text, words="", favorites="", punctuationrefined="")
+                return render_template("after.html", unchanged_text=unchanged_text, words="", favorites="", punctuationrefined="")
             else:
                 rawtext = request.form.get("thetext")
                 # If text was pasted, remove line space escape characters
@@ -67,7 +69,6 @@ def home():
                         from xml.etree.ElementTree import XML
                     import zipfile
 
-
                     """
                     Module that extract text from MS XML Word document (.docx).
                     (Inspired by python-docx <https://github.com/mikemaccana/python-docx>)
@@ -76,7 +77,6 @@ def home():
                     WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
                     PARA = WORD_NAMESPACE + 'p'
                     TEXT = WORD_NAMESPACE + 't'
-
 
                     def get_docx_text(path):
                         """
@@ -105,44 +105,44 @@ def home():
 
         # Record counts for these 11 types of puntuaction
         punctuation = []
-        period=0
-        semicolon=0
-        colon=0
-        dash=0
-        mdash=0
-        comma=0
-        exclamation=0
-        question=0
-        slash=0
-        parenthesis=0
-        quotation=0
+        period = 0
+        semicolon = 0
+        colon = 0
+        dash = 0
+        mdash = 0
+        comma = 0
+        exclamation = 0
+        question = 0
+        slash = 0
+        parenthesis = 0
+        quotation = 0
 
         # Count how much each punctuation was used
         for character in text:
-            if character ==".":
-                period +=1
-            elif character ==";":
-                semicolon +=1
-            elif character ==":":
-                colon +=1
-            elif character =="-":
-                dash +=1
-            elif character =="—":
-                mdash +=1
-            elif character ==",":
-                comma +=1
-            elif character =="!":
-                exclamation +=1
-            elif character =="?":
-                question +=1
-            elif character =="/":
-                slash +=1
-            elif character =="(":
-                parenthesis +=1
-            elif character =='“':
-                quotation +=1
-            elif character =='"':
-                quotation +=1
+            if character == ".":
+                period += 1
+            elif character == ";":
+                semicolon += 1
+            elif character == ":":
+                colon += 1
+            elif character == "-":
+                dash += 1
+            elif character == "—":
+                mdash += 1
+            elif character == ",":
+                comma += 1
+            elif character == "!":
+                exclamation += 1
+            elif character == "?":
+                question += 1
+            elif character == "/":
+                slash += 1
+            elif character == "(":
+                parenthesis += 1
+            elif character == '“':
+                quotation += 1
+            elif character == '"':
+                quotation += 1
 
         # Add the counts for each mark (in the form of a dict) to the centralized punctuation list
         # AND update text to wipe out any punctuation that could mess up word counting
@@ -173,12 +173,11 @@ def home():
         text = text.replace('”', '')
         text = text.replace('"', '')
 
-
         # Got this from here https://www.geeksforgeeks.org/ways-sort-list-dictionaries-values-python-using-itemgetter/
         # and https://www.geeksforgeeks.org/python-removing-dictionary-from-list-of-dictionaries/
         from operator import itemgetter
         # Sort the punctuation marks by count from highest to lowest
-        punctuationsorted = sorted(punctuation, key=itemgetter('Count'), reverse = True)
+        punctuationsorted = sorted(punctuation, key=itemgetter('Count'), reverse=True)
         # Remove any punctuation counts that are 0 (doesn't need to be displayed)
         punctuationrefined = [i for i in punctuationsorted if not (i['Count'] == 0)]
 
@@ -187,7 +186,7 @@ def home():
         # Split up the text into words (by spaces)
         allWords = nocase.split()
         # Get word count
-        words=len(allWords)
+        words = len(allWords)
 
         # From https://docs.python.org/2/library/collections.html
         import re
@@ -205,8 +204,8 @@ def home():
         counted = cnt
 
         # Make a list of all the keys counted (words counted)
-        keys=counted.keys()
-        key_array=[]
+        keys = counted.keys()
+        key_array = []
         for key in keys:
             key_array.append(key)
 
@@ -257,15 +256,14 @@ def home():
             number = 10
 
         # From the main list of word counts, only take the top ones (depending on "number", as defined above)
-        most=counted.most_common(number)
+        most = counted.most_common(number)
 
         # Create empty list favorites (to hold words and their counts)
-        favorites=[]
+        favorites = []
         # Set "favoritestotal" to 0, which will come to equal the total number of times any of the favorites was used
         favoritestotal = 0
         # Set "favoritescount" to 0, which will come to equal the total count of favorite words, once any word with a count less than 3 is removed
         favoritescount = 0
-
 
         for i in range(0, len(most)):
             # Check if word was used more than twice
@@ -284,12 +282,13 @@ def home():
         # Calculate the portion of the total word count that was accounted for by the top words displayed
         percentage = round(((favoritestotal / words) * 100), 2)
 
-        return render_template("after.html", favoritescount=favoritescount, percentage=percentage, unchanged_text = unchanged_text,
-        words=words, favorites=favorites, punctuationrefined=punctuationrefined)
+        return render_template("after.html", favoritescount=favoritescount, percentage=percentage, unchanged_text=unchanged_text,
+                               words=words, favorites=favorites, punctuationrefined=punctuationrefined)
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("index.html")
+
 
 @app.route("/synonyms", methods=["GET"])
 def synonyms():
@@ -324,6 +323,7 @@ def synonyms():
             adverb_synonyms = ""
 
         return render_template("synonyms.html", theword=theword, noun_synonyms=noun_synonyms, adjective_synonyms=adjective_synonyms, verb_synonyms=verb_synonyms, adverb_synonyms=adverb_synonyms)
+
 
 def errorhandler(e):
     """Handle error"""
